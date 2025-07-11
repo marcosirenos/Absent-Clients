@@ -8,12 +8,15 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 import time
 import os
 import datetime
-from auto_browser.helper_functions import Functions
+from auto_browser import helper_functions
 import logging 
 import datetime as dt
 
+functions = helper_functions.Functions()
+
+
 log_file_name = f"{dt.datetime.now().strftime("%Y-%m-%d_%H%M%S")}_automation_log.log"
-log_file_name = f"C:\\Users\\guilherme.oliveira\\Documents\\GitHub\\Clientes Ausentes\\log\\{log_file_name}"
+log_file_name = f"your\\log\\path\\{log_file_name}" 
 
 
 logging.basicConfig(filename=log_file_name, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -39,12 +42,12 @@ logger.info("1. Navigating to login page...")
 driver.get("https://monitorflex.kantaribopemedia.com/Portal/Account/Login.aspx?AspxAutoDetectCookieSupport=1")
 
 logger.info("2. Performing login...")
-Functions.login(driver, user_name, password)
+functions.login(driver, user_name, password)
 
 # --- Navigate to the report page ---
 logger.info("3. Accepting cookies and navigating to report search page (this page loads dynamically)...")
 time.sleep(3)
-Functions.accept_cookies(driver)
+functions.accept_cookies(driver)
 time.sleep(3)
 
 try:
@@ -129,11 +132,11 @@ if found_in_iframe:
     # --- Selecting the right layout (absent-clients) ---
     # report_location = driver.find_element(By.ID, "RelatoriosDropDownList")
     # ActionChains(driver).scroll_to_element(report_location).perform()
-    Functions.click_element(driver, By.ID, "RelatoriosDropDownList_chosen") # Selection layouts dropdown
+    functions.click_element(driver, By.ID, "RelatoriosDropDownList_chosen") # Selection layouts dropdown
     locator_str = "li[data-option-array-index='3']" # The CSS location for our item 'absent-clients' layout
-    Functions.click_element(driver, By.CSS_SELECTOR, locator_str)
+    functions.click_element(driver, By.CSS_SELECTOR, locator_str)
     locator_str = "//button[text()='Sim']" # Now getting the location for confirmation buttton
-    Functions.click_element(driver, By.XPATH, locator_str)
+    functions.click_element(driver, By.XPATH, locator_str)
     # As it takes some time to load, I decided to use time.sleep() -- This can get better
     time.sleep(15)
     
@@ -258,7 +261,7 @@ if found_in_iframe:
     
     try:
         logger.info("  Updating table with new filters")
-        Functions.click_element(driver, By.ID, "AtualizarPivotGridButton")
+        functions.click_element(driver, By.ID, "AtualizarPivotGridButton")
     except Exception as e:
         logger.error(f"  Updating data error: **{e}**")
 
@@ -268,7 +271,7 @@ if found_in_iframe:
     try:
         logger.info("  Selecting analytics view")
         locator_str = "input[itemid='aba_analitico']"
-        Functions.click_element(driver, By.CSS_SELECTOR, locator_str)
+        functions.click_element(driver, By.CSS_SELECTOR, locator_str)
     except Exception as e:
         logger.error(f" Fail to enter analytics view, error: **{e}**")
         
@@ -278,7 +281,7 @@ if found_in_iframe:
     # --- Finally selecting export as spreadsheet ---
     try:
         logger.info("  Exporting data")
-        Functions.click_element(driver, By.ID, "downloadExcel")
+        functions.click_element(driver, By.ID, "downloadExcel")
     except Exception as e:
         logger.error(f"  Fail export for error: **{e}**")
 
@@ -291,5 +294,5 @@ else:
 
 logger.info("\n--- Script finished execution. ---")
 #input("Press Enter to close browser (or manually)...")
-time.sleep(3)
+time.sleep(6)
 driver.quit()

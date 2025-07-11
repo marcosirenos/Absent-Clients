@@ -19,7 +19,7 @@ class Functions:
         except Exception as e:
             print(f"ERROR: Could not click {locator}. Exception: {e}")
             raise
-
+    
     @staticmethod
     def fill_input(driver, by_type, locator, text, timeout=10):
         try:

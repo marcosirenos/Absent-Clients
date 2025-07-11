@@ -1,0 +1,73 @@
+2025-07-11 17:40:48,956 - INFO - --- Running Script ---
+2025-07-11 17:40:48,957 - INFO - 1. Navigating to login page...
+2025-07-11 17:40:49,715 - INFO - 2. Performing login...
+2025-07-11 17:40:50,190 - INFO - 3. Accepting cookies and navigating to report search page (this page loads dynamically)...
+2025-07-11 17:41:16,548 - INFO - 4. Reached report search page. Now waiting for initial page load.
+2025-07-11 17:41:16,606 - INFO - \u2705 SUCCESS: document.readyState is 'complete'. Initial page scripts should be loaded.
+2025-07-11 17:41:16,608 - INFO - 
+6. Searching for iframes on the page and attempting to find 'ctl00_MainContent_ASPxSplitter1' within each...
+2025-07-11 17:41:21,652 - INFO - Found 3 iframes on the page.
+2025-07-11 17:41:21,652 - INFO - Checking default content (main document)...
+2025-07-11 17:41:32,296 - ERROR - 'ctl00_MainContent_ASPxSplitter1' NOT found in the main document.
+2025-07-11 17:41:32,297 - INFO - 
+    Attempting to switch to iframe 1/3...
+2025-07-11 17:41:32,356 - INFO -     Switched to iframe 1.
+2025-07-11 17:41:32,373 - INFO - \u2705 SUCCESS: 'ctl00_MainContent_ASPxSplitter1' found in iframe 1!
+2025-07-11 17:41:32,379 - INFO -     Switched back to default content from iframe 1.
+2025-07-11 17:41:32,426 - INFO - 
+    Switched to the target iframe for all subsequent interactions.
+2025-07-11 17:41:50,885 - INFO - 
+7. Selecting current month and year...
+2025-07-11 17:41:50,885 - INFO -     Selecting current year...
+2025-07-11 17:41:52,125 - INFO -     Clicked year: 2025.
+2025-07-11 17:41:53,126 - INFO -     Selecting current month...
+2025-07-11 17:41:53,316 - INFO -     Clicked month: Julho (data-key: 7).
+2025-07-11 17:41:54,317 - INFO - 
+8. Iterating through remaining lists with arguments: ['UF', 'Praca', 'Rede', 'Meio'] and clicking all items with CTRL...
+2025-07-11 17:41:54,317 - INFO - 
+    Processing list with argument: 'UF'
+2025-07-11 17:41:54,367 - INFO -     List for argument 'UF' located.
+2025-07-11 17:41:54,391 - INFO -     Found 1 items in the 'UF' list.
+2025-07-11 17:41:55,324 - INFO -       Clicked 'PARANA' from 'UF' list with CTRL.
+2025-07-11 17:41:55,825 - INFO - 
+    Processing list with argument: 'Praca'
+2025-07-11 17:41:55,859 - INFO -     List for argument 'Praca' located.
+2025-07-11 17:41:55,870 - INFO -     Found 16 items in the 'Praca' list.
+2025-07-11 17:41:56,771 - INFO -       Clicked 'CASCAVEL' from 'Praca' list with CTRL.
+2025-07-11 17:41:58,200 - INFO -       Clicked 'CASCAVEL MERCHANDISING' from 'Praca' list with CTRL.
+2025-07-11 17:41:59,599 - INFO -       Clicked 'CURITIBA' from 'Praca' list with CTRL.
+2025-07-11 17:42:01,017 - INFO -       Clicked 'CURITIBA MERCHANDISING' from 'Praca' list with CTRL.
+2025-07-11 17:42:02,415 - INFO -       Clicked 'FOZ DO IGUACU' from 'Praca' list with CTRL.
+2025-07-11 17:42:03,830 - INFO -       Clicked 'FOZ DO IGUACU MERCHANDISING' from 'Praca' list with CTRL.
+2025-07-11 17:42:05,281 - INFO -       Clicked 'GUARAPUAVA' from 'Praca' list with CTRL.
+2025-07-11 17:42:06,697 - INFO -       Clicked 'GUARAPUAVA MERCHANDISING' from 'Praca' list with CTRL.
+2025-07-11 17:42:08,119 - INFO -       Clicked 'LONDRINA' from 'Praca' list with CTRL.
+2025-07-11 17:42:09,576 - INFO -       Clicked 'LONDRINA MERCHANDISING' from 'Praca' list with CTRL.
+2025-07-11 17:42:11,015 - INFO -       Clicked 'MARINGA' from 'Praca' list with CTRL.
+2025-07-11 17:42:12,491 - INFO -       Clicked 'MARINGA MERCHANDISING' from 'Praca' list with CTRL.
+2025-07-11 17:42:14,003 - INFO -       Clicked 'PARANAVAI' from 'Praca' list with CTRL.
+2025-07-11 17:42:15,418 - INFO -       Clicked 'PARANAVAI MERCHANDISING' from 'Praca' list with CTRL.
+2025-07-11 17:42:16,789 - INFO -       Clicked 'PONTA GROSSA' from 'Praca' list with CTRL.
+2025-07-11 17:42:18,201 - INFO -       Clicked 'PONTA GROSSA MERCHANDISING' from 'Praca' list with CTRL.
+2025-07-11 17:42:18,702 - INFO - 
+    Processing list with argument: 'Rede'
+2025-07-11 17:42:18,737 - INFO -     List for argument 'Rede' located.
+2025-07-11 17:42:18,745 - INFO -     Found 5 items in the 'Rede' list.
+2025-07-11 17:42:19,627 - INFO -       Clicked 'BANDEIRANTES' from 'Rede' list with CTRL.
+2025-07-11 17:42:21,052 - INFO -       Clicked 'CNT' from 'Rede' list with CTRL.
+2025-07-11 17:42:22,495 - INFO -       Clicked 'GLOBO' from 'Rede' list with CTRL.
+2025-07-11 17:42:23,871 - INFO -       Clicked 'RECORD' from 'Rede' list with CTRL.
+2025-07-11 17:42:25,232 - INFO -       Clicked 'SBT' from 'Rede' list with CTRL.
+2025-07-11 17:42:25,733 - INFO - 
+    Processing list with argument: 'Meio'
+2025-07-11 17:42:25,759 - INFO -     List for argument 'Meio' located.
+2025-07-11 17:42:25,768 - INFO -     Found 2 items in the 'Meio' list.
+2025-07-11 17:42:26,627 - INFO -       Clicked 'TV ABERTA' from 'Meio' list with CTRL.
+2025-07-11 17:42:28,025 - INFO -       Clicked 'TV ABERTA MERCHANDISING' from 'Meio' list with CTRL.
+2025-07-11 17:42:33,526 - INFO -   Updating table with new filters
+2025-07-11 17:42:48,819 - INFO -   Selecting analytics view
+2025-07-11 17:43:03,990 - INFO -   Exporting data
+2025-07-11 17:43:04,259 - INFO - 
+    Switched back to default content after all interactions.
+2025-07-11 17:43:04,259 - INFO - 
+--- Script finished execution. ---
