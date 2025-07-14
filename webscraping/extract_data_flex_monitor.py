@@ -23,6 +23,8 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 download_dir = os.path.join(script_dir, os.pardir, "data", "raw")
 download_dir = os.path.abspath(download_dir)
 
+        
+
 
 # Create the download directory if it doesn't exist and deleting files inside the folder
 if os.path.exists(download_dir):
