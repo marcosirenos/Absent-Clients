@@ -15,7 +15,7 @@ This is a project for automating the workflow of extracting data from flex monit
 
 The first part of the workflow is to log in into flex monitor tool, make the desired filters and download the CSV file.
 
-For this part I used selenium in Python, trying to make the same path as the user would with a few changes. The flex monitor tool uses frames for loading some content, for this challenge, I used a loop searching for one element through the frames, so I could interact with the website and continue the exportation. The logic is:
+For this part I used selenium in Python, trying to make the same path as the user would with a few changes. The flex monitor tool uses frames for loading some content, for this challenge, I used a loop, searching for one element through the frames, so I could interact with the website and continue the exportation. The logic is:
 
 ```python
 # Setting variables
@@ -35,6 +35,31 @@ try:
 except TimeoutException:
     logger.error(f"'{main_table_container_id}' NOT found in the main document.")
     pass
+ 
+if not found_in_iframe:
+    for i, iframe in enumerate(iframes):
+        logger.info(f"\n    Attempting to switch to iframe {i+1}/{len(iframes)}...")
+        try:
+            driver.switch_to.frame(iframe)
+            logger.info(f"    Switched to iframe {i+1}.")
+
+            main_container_element_in_frame = WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.ID, main_table_container_id))
+            )
+            logger.info(f"✅ SUCCESS: '{main_table_container_id}' found in iframe {i+1}!")
+            found_in_iframe = True
+            target_iframe_element = iframe
+            break
+
+        except TimeoutException:
+            logger.error(f"❌ FAILURE: '{main_table_container_id}' NOT found in iframe {i+1} within allowed time.")
+        except StaleElementReferenceException:
+            logger.warning(f"⚠️ WARNING: Iframe element {i+1} became stale. Skipping this iframe.")
+        except Exception as e:
+            logger.error(f"❌ ERROR: An unexpected error occurred while checking iframe {i+1}: {e}")
+        finally:
+            driver.switch_to.default_content()
+            logger.info(f"    Switched back to default content from iframe {i+1}.")
 ```
 
 After all steps (more details in the file ‘extract_data_flex_monitor.py’) I simply used selenium to download the report, which will be sent to a data processing script.
