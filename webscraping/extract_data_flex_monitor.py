@@ -8,27 +8,61 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 import time
 import os
 import datetime
-from auto_browser import helper_functions
+from functions import helper_functions
 import logging 
 import datetime as dt
+from pathlib import Path
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+import shutil
+
 
 functions = helper_functions.Functions()
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+download_dir = os.path.join(script_dir, os.pardir, "data", "raw")
+download_dir = os.path.abspath(download_dir)
 
-log_file_name = f"{dt.datetime.now().strftime("%Y-%m-%d_%H%M%S")}_automation_log.log"
-log_file_name = f"your\\log\\path\\{log_file_name}" 
+
+# Create the download directory if it doesn't exist and deleting files inside the folder
+if os.path.exists(download_dir):
+    print(f"Clearing contents of folder: {download_dir}")
+    for filename in os.listdir(download_dir):
+        file_path = os.path.join(download_dir, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path) # Remove file or symbolic link
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path) # Remove directory and its contents
+            print(f"Deleted: {file_path}")
+        except Exception as e:
+            print(f"Failed to delete {file_path}. Reason: {e}")
+else:
+    os.makedirs(download_dir)
+    print(f"Created destination folder: {download_dir}")
 
 
-logging.basicConfig(filename=log_file_name, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Logging set up
+current_working_directory = Path.cwd()
+log_directory = current_working_directory / "log"
+log_directory.mkdir(parents=True, exist_ok=True)
+log_file_name = f"{dt.datetime.now().strftime("%Y-%m-%d_%H%M%S")}_scraping.log"
+log_file_path = log_directory / log_file_name
+logging.basicConfig(filename=log_file_path, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger()
 
-user_name = "username" # Change if needed
-password = "userpassword" # Change if needed
 
 
 # --- Main Script Execution ---
 
+prefs = {
+    "download.default_directory": download_dir, # Crucial: Sets the download path
+    "download.prompt_for_download": False,    # Disable the download confirmation dialog
+    "download.directory_upgrade": True       # Generally recommended}
+}
+
 options = webdriver.ChromeOptions()
+options.add_experimental_option("prefs", prefs)
 options.add_experimental_option("detach", True)
 options.add_argument('--ignore-certificate-errors')
 
