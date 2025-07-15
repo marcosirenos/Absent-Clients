@@ -15,7 +15,7 @@ from pathlib import Path
 
 scopes = ["https://www.googleapis.com/auth/spreadsheets",
           "https://www.googleapis.com/auth/drive"]
-json_file = "credentials.json"
+json_file = "credentials.json" # <-------------- Change to actual location
 
 month_names = {
     1: "Janeiro",
