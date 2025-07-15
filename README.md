@@ -58,7 +58,7 @@ Follow these instructions to get a local copy up and running.
 
 1.  Clone the repository:
     ```sh
-    git clone https://github.com/Guilherme-Vso/Absent-Clients.git
+    git clone https://github.com/marcosirenos/Absent-Clients.git
     ```
 2.  Navigate to the project directory:
     ```sh
