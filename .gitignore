@@ -2,3 +2,4 @@
 *.log
 *.xls
 dataprocessing/credentials.json
+*.xlsx
