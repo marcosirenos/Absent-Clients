@@ -80,8 +80,8 @@ Then you can install the requirements in requirements.txt. I recommend using a V
 pip install -r requirements.txtt
 ```
 
-Then you can run the code for the webscraping
+Then you can run the main code, from the root folder:
 
 ```
-python -m extract_data_flex_monitor.py
+python -m main.main
 ```
