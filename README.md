@@ -88,7 +88,9 @@ This project requires access to Google Sheets. You must configure a Google Cloud
 3.  Place the `credentials.json` file inside the `dataprocessing/` directory. The path should be `dataprocessing/credentials.json`.
     > **Note**: This file is included in `.gitignore` and should never be committed to version control.
 4.  Share your target Google Sheets with the service account's email address (found in the `client_email` field of your `credentials.json`).
-
+5.  In the main.py file, change the username and password with a valid one
+    > **Note**: Never commit such personal information to version control.
+ 
 The structure should look like this:
 ```
 Absent-Clients/
