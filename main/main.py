@@ -14,8 +14,8 @@ if __name__ == "__main__":
     # <--- Variables --->
     pre_data = Path("data", "raw", "MonitorFlexExportacao.xls")
     source_data = Path("data", "raw", "MonitorFlexExportacao.xlsx")
-    user = "emerson.rizzardi"  # Replace with actual username
-    password = "Intelig@1900"  # Replace with actual password
+    user = "username"  # Replace with actual username
+    password = "password"  # Replace with actual password
         
     # <--- Calling functions --->
     scraper.web_scraping(user, password)
