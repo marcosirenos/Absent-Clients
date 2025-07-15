@@ -1,6 +1,6 @@
 # Absent Clients Report Automation
 
-[![Python application](https://github.com/Guilherme-Vso/Absent-Clients/actions/workflows/python-app.yml/badge.svg)](https://github.com/Guilherme-Vso/Absent-Clients/actions/workflows/python-app.yml)
+[![Python application](https://github.com/marcosirenos/Absent-Clients/actions/workflows/python-app.yml/badge.svg)](https://github.com/marcosirenos/Absent-Clients/actions/workflows/python-app.yml)
 
 This project automates the entire workflow of generating an "Absent Clients" report. It handles data extraction from a web tool, processes the downloaded data, and generates a final, clean Excel report.
 
