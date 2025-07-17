@@ -302,6 +302,125 @@ class DataProcessing:
         df['Cobertura'] = df['Cobertura'].astype('category')
         df['Região'] = df['Região'].astype('category')
 
+        print("Applying discount on column")
+        
+        def discount_giver(row):
+            emissora = row['Emissora TV']
+            coverage = row['Cobertura']
+            praca = row['Praça']
+            anunciante = row['Anunciante']
+            
+            #SBT discounts
+            if 'SBT' in emissora and 'MERCHANDISING' not in praca:
+                return 0.94
+            elif 'SBT' in emissora and 'MERCHANDISING' in praca:
+                return 0.93
+            #BAND discounts
+            elif 'BANDEIRANTES' in emissora and 'MERCHANDISING' not in praca and (praca in ['LONDRINA', 'MARINGA', 'CURITIBA']):
+                return 0.95
+            elif 'BANDEIRANTES' in emissora and 'MERCHANDISING' in praca and (praca in ['LONDRINA', 'MARINGA', 'CURITIBA']):
+                return 0.95
+            elif 'BANDEIRANTES' in emissora and 'MERCHANDISING' not in praca and 'CASCAVEL' in praca:
+                return 0.95
+            elif 'BANDEIRANTES' in emissora and 'MERCHANDISING' in praca and 'CASCAVEL' in praca:
+                return 0.95
+            #CNT discounts
+            elif 'CNT' in emissora and 'CURITIBA' in praca:
+                return 0.9
+            #GLOBO discounts
+            elif 'GLOBO' in emissora and 'MERCHANDISING' not in praca and (praca in ['MARINGA', 'LONDRINA', 'FOZ DO IGUACU']):
+                return 0.3
+            elif 'GLOBO' in emissora and 'MERCHANDISING' in praca and (praca in ['MARINGA', 'LONDRINA', 'FOZ DO IGUACU']):
+                return 0.29
+            elif 'GLOBO' in emissora and 'MERCHANDISING' not in praca and (praca in ['PARANAVAI', 'PONTA GROSSA', 'GUARAPUAVA']):
+                return 0.4
+            elif 'GLOBO' in emissora and 'MERCHANDISING' not in praca and (praca in ['CURITIBA', 'CASCAVEL']):
+                return 0.3
+            elif 'GLOBO' in emissora and 'MERCHANDISING' in praca and (praca in ['CURITIBA', 'CASCAVEL']):
+                return 0.24
+            
+            #Import discounts
+            elif 'BANDEIRANTES' in emissora and 'IMPORT' in coverage:
+                return 0.95
+            elif 'SBT' in emissora and 'IMPORT' in coverage:
+                return 0.9
+            elif 'GLOBO' in emissora and 'IMPORT' in coverage:
+                return 0.1
+            elif 'CNT' in emissora and 'IMPORT' in coverage:
+                return 0.96
+            elif 'RECORD' in emissora and 'IMPORT' in coverage:
+                return 0.82
+            
+            #Specific Discounts
+            #SBT discounts:
+            elif 'SBT' in emissora and 'CONDOR' in anunciante and 'MERCHANDISING' not in praca:
+                return 0.89
+            elif 'SBT' in emissora and 'CONDOR' in anunciante and 'MERCHANDISING' in praca:
+                return 0.88
+            elif 'SBT' in emissora and 'SUPER MUFFATO' in anunciante and 'MERCHANDISING' not in praca:
+                return 0.89
+            elif 'SBT' in emissora and 'SUPER MUFFATO' in anunciante and 'MERCHANDISING' in praca:
+                return 0.88
+            elif 'SBT' in emissora and 'ALIANCA' in anunciante and 'MERCHANDISING' not in praca:
+                return 0.9950
+            elif 'SBT' in emissora and 'ALIANCA' in anunciante and 'MERCHANDISING' in praca:
+                return 0.93
+            elif 'SBT' in emissora and 'RIO VERDE' in anunciante:
+                return 0.98
+            elif 'SBT' in emissora and 'ODONTO EXCELLENCE' in anunciante:
+                return 0.96
+            #BAND discounts
+            elif 'BANDEIRANTES' in emissora and 'MALUCELLLI' in anunciante:
+                return 0.98
+            elif 'BANDEIRANTES' in emissora and 'PONTO DE VISAO' in anunciante:
+                return 0.9850
+            elif 'BANDEIRANTES' in emissora and 'O SOLUCIONADOR' in anunciante:
+                return 0.98
+            elif 'BANDEIRANTES' in emissora and 'SUPER MUFFATO' in anunciante:
+                return 0.97
+            #GLOBO discounts
+            elif 'GLOBO' in emissora and 'COORITIBA FOOT BALL CLUB' in anunciante:
+                return 0.5
+            elif 'GLOBO' in emissora and 'PONTO DE VISÃO' in anunciante:
+                return 0.7
+            elif 'GLOBO' in emissora and 'KURTEN' in anunciante:
+                return 0.55
+            elif 'GLOBO' in emissora and 'JOCKEY PLAZA SHOP' in anunciante:
+                return 0.5
+            #GOV discounts
+            elif 'CNT' not in emissora and 'RECORD' not in emissora and 'GOV' in anunciante:
+                return 0.13
+            elif 'CNT' in emissora and 'GOV' in anunciante:
+                return 0.50
+            #ASSEM discounts
+            elif 'CNT' not in emissora and 'RECORD' not in emissora and 'ASSEMBLEIA' in anunciante:
+                return 0.13
+            elif 'CNT' in emissora and 'ASSEMBLEIA' in anunciante:
+                return 0.50
+            #PREF discounts
+            elif 'GLOBO' in emissora and 'PREF MUN CURITIBA (GMP)' in anunciante:
+                return 0.15
+            elif 'BANDEIRANTES' in emissora and 'PREF MUN CURITIBA (GMP)' in anunciante:
+                return 0.20
+            elif 'SBT' in emissora and 'PREF MUN CURITIBA (GMP)' in anunciante:
+                return 0.20
+            elif 'CNT' in emissora and 'PREF MUN CURITIBA (GMP)' in anunciante:
+                return 0.55
+            else:
+                return 0
+
+        df['Desconto'] = df.apply(discount_giver, axis=1)
+
+        # Apply some discounts
+        mask1 = (df['Desconto'] != 0) & (df['Agência'] == '{DIRETO}')  # Check for direct agency
+        mask2 = (df['Desconto'] != 0) & (df['Agência'] != '{DIRETO}')  # Check for non-direct agency
+
+        df['Valor Líquido Projetado'] = 0  # Initialize the column with zeros
+
+        df.loc[mask1, 'Valor Líquido Projetado'] = df['Vl Tab (000)'] * (1 - df['Desconto'])
+        df.loc[mask2, 'Valor Líquido Projetado'] = df['Vl Tab (000)'] * (1 - df['Desconto']) * (1 - 0.2)
+
+        
         # print(df.dtypes)
         # print(df)
 
