@@ -4,7 +4,7 @@ import pyexcel as pe
 
 class FilePreparation:
     def convert_file(self, source):
-        df_list = pd.read_html(source, encoding='utf-8')
+        df_list = pd.read_html(source, thousands='.', decimal=',')
         df = df_list[1]
         new_header = df.tail(1).values[0]
         df = df.iloc[:-1]
