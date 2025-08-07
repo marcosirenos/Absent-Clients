@@ -272,5 +272,5 @@ class WebScraping:
         else:
             self.logger.warning("\nSkipping all interactions as main container was not found in any accessible context.")
         self.logger.info("Script finished execution")
-        time.sleep(6)
+        time.sleep(15)
         driver.quit()
