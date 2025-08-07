@@ -4,3 +4,4 @@
 dataprocessing/credentials.json
 *.xlsx
 /tests
+/EDA
