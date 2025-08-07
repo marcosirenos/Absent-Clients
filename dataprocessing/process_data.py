@@ -46,37 +46,6 @@ class DataProcessing:
                 if 'Inserção' in df.columns:
                     df['Inserção'] = df['Inserção'].astype(str)
                 
-                # Now apply replacements safely
-                if 'INV(000)' in df.columns:
-                    df['INV(000)'] = df['INV(000)'].str.replace('.', '', regex=False)
-                    df['INV(000)'] = df['INV(000)'].str.replace(',', '.', regex=False)
-                if 'Inserção' in df.columns:
-                    df['Inserção'] = df['Inserção'].str.replace('.', '', regex=False)
-                    df['Inserção'] = df['Inserção'].str.replace(',', '.', regex=False)
-                print(df)
-
-            elif teste[1] == '.xls':
-                #read the hmtl(xls) file:
-                dfs = pd.read_html(file_path, header=None)
-                df = dfs[1]
-                new_header = df.iloc[-1]
-                print(new_header)
-                df = df[:-1]
-                df.columns = new_header
-                df = df.reset_index(drop=True)
-
-                # pre data treatment:
-                # For .xls, pd.read_html often brings data in as strings,
-                # but it's safer to ensure it, especially if 'INV(000)' or 'Inserção'
-                # might sometimes be numeric for some reason.
-                if 'INV(000)' in df.columns:
-                    df['INV(000)'] = df['INV(000)'].astype(str)
-                if 'Inserção' in df.columns:
-                    df['Inserção'] = df['Inserção'].astype(str)
-
-                if 'INV(000)' in df.columns:
-                    df['INV(000)'] = df['INV(000)'].str.replace('.', '', regex=False)
-                    df['INV(000)'] = df['INV(000)'].str.replace(',', '.', regex=False)
                 if 'Inserção' in df.columns:
                     df['Inserção'] = df['Inserção'].str.replace('.', '', regex=False)
                     df['Inserção'] = df['Inserção'].str.replace(',', '.', regex=False)
@@ -120,7 +89,7 @@ class DataProcessing:
 
         time.sleep(3)
 
-        df['INV(000)'] = df['INV(000)'].astype(np.float32)
+        df['INV(000)'] = df['INV(000)'].astype(np.double)
         df['Inserção'] = df['Inserção'].astype(np.int16)
         df['Ano-Mês'] = df['Ano-Mês'].astype(np.int32)
         df['Praça'] = df['Praça'].astype('category')
@@ -446,7 +415,7 @@ class DataProcessing:
         dataframes= [Adf.drop(columns='Cobertura', inplace=True) for Adf in dataframes]          
         # Create or get the file path            
         print("Finishing XLSX report")             
-        file_path = Path("data", "processed", f"{datetime.datetime.now().strftime('%B')}_.xlsx")            
+        file_path = Path(r"S:\BI Clientes Ausentes\data", f"{datetime.datetime.now().strftime('%B')}_.xlsx")            
         with pd.ExcelWriter(file_path, engine='xlsxwriter') as writer:            
             # Save each DataFrame to a separate worksheet                
             Adf.to_excel(writer, sheet_name='GERAL', index=False)               
